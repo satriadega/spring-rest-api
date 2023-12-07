@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import payroll.entity.Employee;
+import payroll.repository.EmployeeRepository;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
@@ -17,6 +21,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 class EmployeeController {
 
   private final EmployeeRepository repository;
+  private static final String template = "Hello, %s!";
 
   EmployeeController(EmployeeRepository repository) {
     this.repository = repository;
@@ -48,6 +53,12 @@ class EmployeeController {
         linkTo(methodOn(EmployeeController.class).all()).withRel("employees"));
   }
 
+  @GetMapping("/greeting")
+  public Greeting greeting(@RequestParam(value = "name", defaultValue = "Worlds") String name) {
+    System.out.println(name);
+    return new Greeting(1, String.format(template, name));
+  }
+
   @PutMapping("/employees/{id}")
   Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
 
@@ -67,4 +78,8 @@ class EmployeeController {
   void deleteEmployee(@PathVariable Long id) {
     repository.deleteById(id);
   }
+
+  public record Greeting(long id, String content) {
+  }
+
 }
