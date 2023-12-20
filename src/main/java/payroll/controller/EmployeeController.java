@@ -1,4 +1,4 @@
-package payroll;
+package payroll.controller;
 
 import java.util.List;
 
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import payroll.entity.Employee;
+import payroll.exception.EmployeeNotFoundException;
 import payroll.repository.EmployeeRepository;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
