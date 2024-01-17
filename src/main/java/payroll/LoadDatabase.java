@@ -23,6 +23,8 @@ class LoadDatabase {
     return args -> {
       log.info("Preloading " + repository.save(Bilbo));
       log.info("Preloading " + repository.save(Frodo));
+      Employee Anonym = new Employee("hidden guy", "expat");
+      repository.save(Anonym);
     };
   }
 }
