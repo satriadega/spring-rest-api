@@ -1,30 +1,39 @@
 package payroll;
 
+import lombok.NonNull;
+
+import payroll.entity.Employee;
+import payroll.repository.EmployeeRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import payroll.entity.Employee;
-import payroll.repository.EmployeeRepository;
+import java.util.Objects;
 
 @Configuration
 class LoadDatabase {
 
   private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
-  Employee Bilbo = new Employee("Bilbo Baggins", "burglar");
-  Employee Frodo = new Employee("Frodo Baggins", "thief");
+  @NonNull
+  private final Employee Bilbo = new Employee("Bilbo Baggins", "burglar");
+
+  @NonNull
+  private final Employee Frodo = new Employee("Frodo Baggins", "thief");
 
   @Bean
   CommandLineRunner initDatabase(EmployeeRepository repository) {
-
     return args -> {
-      log.info("Preloading " + repository.save(Bilbo));
-      log.info("Preloading " + repository.save(Frodo));
+      log.info("Preloading " + repository.save(Objects.requireNonNull(Bilbo, "Bilbo must not be null")));
+      log.info("Preloading " + repository.save(Objects.requireNonNull(Frodo, "Frodo must not be null")));
+
+      // Using Lombok's @NonNull for Anonym
+      @NonNull
       Employee Anonym = new Employee("hidden guy", "expat");
-      repository.save(Anonym);
+      repository.save(Objects.requireNonNull(Anonym, "Anonym must not be null"));
     };
   }
 }
