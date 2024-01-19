@@ -14,9 +14,9 @@ public class PayrollApplication {
 
 		Bilbo.setId(1L);
 		Frodo.setId(1L);
-		System.out.println(Bilbo.equals(Frodo) + " 55555555555555");
-		System.out.println(Bilbo.hashCode());
-		System.out.println(Bilbo.hashCode());
+		// System.out.println(Bilbo.equals(Frodo) + " 55555555555555");
+		// System.out.println(Bilbo.hashCode());
+		// System.out.println(Bilbo.hashCode());
 	}
 
 	public static void main(String... args) {
